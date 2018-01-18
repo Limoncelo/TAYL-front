@@ -156,11 +156,11 @@ Template.main.onRendered(function() {
         else {
             // Mouse move listener
             console.log('Using mouse movement');
-            document.body.addEventListener('mousemove', function(e) {
+           // document.body.addEventListener('mousemove', function(e) {
                 //console.log('moved');
-                mouse.x = e.clientX;
-                mouse.y = e.clientY;
-            });
+             //   mouse.x = e.clientX;
+               // mouse.y = e.clientY;
+            //});
         }
 
         // Random motion

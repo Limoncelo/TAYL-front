@@ -11,7 +11,6 @@ body {
     margin: 0;
     padding: 0;
     font-family: "Source Sans Pro";
-    height: 100vh;
 }
 
 h1, .navbar a.navbar-brand, .navbar a.navbar-brand:hover, p, .fa.fa-spinner {
@@ -68,4 +67,13 @@ body {
 
 .progress-bar {
     background-image: linear-gradient(45deg, rgba(0, 0, 0, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(0, 0, 0, 0.15) 75%, transparent 75%, transparent);;
+}
+
+#progress {
+    width: 50%;
+    margin: 0 auto;
+}
+
+.progressbarLabel {
+    font-size: 50px;
 }

@@ -157,7 +157,6 @@ Template.main.onRendered(function() {
             // Mouse move listener
 
             //DECOMMENTER >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-            console.log('Using mouse movement');
            // document.body.addEventListener('mousemove', function(e) {
                 //console.log('moved');
              //   mouse.x = e.clientX;

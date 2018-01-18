@@ -1,13 +1,16 @@
-<template name="main"><head>
+<template name="main">
+  <head>
   <title>TAYL</title>
 </head>
 
 <body>
-<nav class="navbar navbar-toggleable-md navbar-light bg-faded">
+  <canvas  id="stars">
+    <nav class="navbar navbar-toggleable-md navbar-light bg-faded">
 
-  <a class="navbar-brand" href="/">TAYL</a>
+      <a class="navbar-brand" href="/">TAYL</a>
 
-</nav>
-{{>yield}}
+    </nav>
+    {{>yield}}
+  </canvas>
 </body>
 </template>

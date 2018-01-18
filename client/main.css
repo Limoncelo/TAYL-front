@@ -1,30 +1,27 @@
 /* CSS declarations go here */
+@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400');
 form {
     width: 100%;
 
 }
 
-.list-group {
-    margin: 0 auto;
-}
-.mainCnt form {
-    margin-top: 20%;
-}
 
 html,
 body {
     margin: 0;
     padding: 0;
+    font-family: "Source Sans Pro";
+    height: 100vh;
 }
 
-h1, .navbar a.navbar-brand, .navbar a.navbar-brand:hover, p {
+h1, .navbar a.navbar-brand, .navbar a.navbar-brand:hover, p, .fa.fa-spinner {
     color: #fffaea;
 }
 
 
 body {
-    background-color: #31102F;
-    background: radial-gradient(ellipse at center, rgba(49,16,47,1) 0%, rgba(40,11,41,1) 100%);
+    background-color: #334E58;
+    background: radial-gradient(ellipse at center, rgba(107,109,118,1)  10%, rgba(51,78,88,1) 100%);
 }
 
 #stars {
@@ -36,6 +33,39 @@ body {
     z-index: 1;
 }
 
-.appContent a, .appContent form, .appContent h1 {
+.appContent a, .appContent form, .appContent h1, .appContent p, .appContent ul li, .appContent .fa {
     z-index: 1000;
+}
+
+.form-group {
+    width: 50%;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.btn.btn-primary {
+    background-color: #8F9EA3;
+    border-color: #8F9EA3;
+}
+
+.container.waitingCnt {
+    margin-top: 20%;
+}
+
+
+.list-group {
+    margin: 0 auto;
+}
+.mainCnt form {
+    margin-top: 20%;
+}
+
+
+.fa.fa-spinner {
+    margin-bottom: 30px;
+}
+
+
+.progress-bar {
+    background-image: linear-gradient(45deg, rgba(0, 0, 0, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(0, 0, 0, 0.15) 75%, transparent 75%, transparent);;
 }

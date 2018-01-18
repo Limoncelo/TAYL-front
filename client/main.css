@@ -1,0 +1,12 @@
+/* CSS declarations go here */
+form {
+    width: 100%;
+
+}
+
+.list-group {
+    margin: 0 auto;
+}
+.mainCnt form {
+    margin-top: 20%;
+}

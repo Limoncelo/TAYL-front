@@ -10,3 +10,32 @@ form {
 .mainCnt form {
     margin-top: 20%;
 }
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+}
+
+h1, .navbar a.navbar-brand, .navbar a.navbar-brand:hover, p {
+    color: #fffaea;
+}
+
+
+body {
+    background-color: #31102F;
+    background: radial-gradient(ellipse at center, rgba(49,16,47,1) 0%, rgba(40,11,41,1) 100%);
+}
+
+#stars {
+    display: block;
+    position: absolute;
+    width: 100%;
+    height: 160rem;
+    height: 100vh;
+    z-index: 1;
+}
+
+.appContent a, .appContent form, .appContent h1 {
+    z-index: 1000;
+}

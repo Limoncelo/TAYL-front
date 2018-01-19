@@ -3,11 +3,10 @@ Template.done.onRendered(function() {
 
     var ProgressBar = require('progressbar.js');
 
-// Assuming we have an empty <div id="container"></div> in
-// HTML
-    var circle = new ProgressBar.SemiCircle('#progress', {
+    var svgPath = document.getElementById('progress');
+    var path = new ProgressBar.SemiCircle(svgPath, {
+        duration: 300,
         color: '#8F9EA3',
-        duration: 3000,
         easing: 'easeInOut',
         text: {
             // Initial value for text.
@@ -56,7 +55,9 @@ Template.done.onRendered(function() {
             alignToBottom: true
         },
     });
-
-    circle.animate(1);
-
+    path.animate(0.7, {
+        duration: 800
+    }, function() {
+        //callback
+    });
 });

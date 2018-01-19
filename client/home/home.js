@@ -3,26 +3,31 @@ Template.main.events({
     'submit .gitSubmit'(event) {
         event.preventDefault();
 
-        //Router.go('waiting',{
-        //}, {
-          //  query: "url=" + event.target.gitURL.value,
-        //});
         Template.home.helpers({
+            //récupérer variable de session créée par le retour de l'api
             location: function () {
                 return Session.get('location');
             }
         });
-                var gitURL = event.target.gitURL.value;
-                Meteor.call('getAPIData', gitURL, function (err, res) {
-                    // The method call sets the Session variable to the callback value
-                    if (err) {
-                        Session.set('location', {error: err});
+        https://github.com/Limoncelo/TAYL-front.git
 
-                    } else {
-                        Session.set('location', res);
-                        return res;
-                    }
-                });
+        var regEx = new RegExp('(https|http):\/\/github\.com\/(.*)\/(.*)\.git', 'i');
+
+        if(regEx ===  event.target.gitURL.value) {
+            var gitURL = event.target.gitURL.value;
+            Meteor.call('getAPIData', gitURL, function (err, res) {
+                // The method call sets the Session variable to the callback value
+                if (err) {
+                    Session.set('location', {error: err});
+
+                } else {
+                    Session.set('location', res);
+                    return res;
+                }
+            });
+
+            Router.go('waiting');
+        }
 
     }
 

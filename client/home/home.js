@@ -4,7 +4,6 @@ Template.main.events({
         event.preventDefault();
 
         //Router.go('waiting',{
-
         //}, {
           //  query: "url=" + event.target.gitURL.value,
         //});
@@ -13,17 +12,14 @@ Template.main.events({
                 return Session.get('location');
             }
         });
-                var ip = event.target.gitURL.value;
-                var res = 'test';
-                Meteor.call('geoJsonForIp', ip, function (err, res) {
+                var gitURL = event.target.gitURL.value;
+                Meteor.call('getAPIData', gitURL, function (err, res) {
                     // The method call sets the Session variable to the callback value
                     if (err) {
                         Session.set('location', {error: err});
 
                     } else {
                         Session.set('location', res);
-
-                        console.log(res);
                         return res;
                     }
                 });

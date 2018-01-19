@@ -3,13 +3,12 @@ import { Meteor } from 'meteor/meteor';
 Meteor.startup(() => {
 
     Meteor.methods({
-        'geoJsonForIp': function (ip) {
+        'getAPIData': function (url) {
             // avoid blocking other method calls from the same client
             this.unblock();
-            var apiUrl = 'http://127.0.0.1:8000/queues/startTestProcess?urlGit=' + ip;
+            var apiUrl = 'http://127.0.0.1:8000/queues/startTestProcess?urlGit=' + url;
             // asynchronous call to the dedicated API calling function
             var response = Meteor.wrapAsync(apiCall)(apiUrl);
-            console.log(ip);
             return response;
         }
     });
@@ -24,7 +23,7 @@ Meteor.startup(() => {
             // A successful API call returns no error
             // but the contents from the JSON response
             callback(null, response);
-            console.log('hi');
+
         } catch (error) {
             // If the API responded with an error message and a payload
             if (error.response) {

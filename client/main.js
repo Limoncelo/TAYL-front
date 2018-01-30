@@ -4,6 +4,7 @@ import { ReactiveVar } from 'meteor/reactive-var';
 import './main.html';
 
 Template.main.onRendered(function() {
+
     /**
      * Stars
      * Inspired by Steve Courtney's poster art for Celsius GS's Drifter - http://celsiusgs.com/drifter/posters.php
@@ -11,7 +12,7 @@ Template.main.onRendered(function() {
      */
 
 // Settings
-    var particleCount = 40,
+    var particleCount = 80,
         flareCount = 10,
         motion = 0.05,
         tilt = 0.05,
@@ -24,8 +25,8 @@ Template.main.onRendered(function() {
         linkChance = 75, // chance per frame of link, higher = smaller chance
         linkLengthMin = 5, // min linked vertices
         linkLengthMax = 7, // max linked vertices
-        linkOpacity = 0.25; // number between 0 & 1
-    linkFade = 90, // link fade-out frames
+        linkOpacity = 0.25, // number between 0 & 1
+        linkFade = 90, // link fade-out frames
         linkSpeed = 1, // distance a link travels in 1 frame
         glareAngle = -60,
         glareOpacityMultiplier = 0.05,
@@ -145,7 +146,7 @@ Template.main.onRendered(function() {
         // Motion mode
         //if (Modernizr && Modernizr.deviceorientation) {
         if ('ontouchstart' in document.documentElement && window.DeviceOrientationEvent) {
-            console.log('Using device orientation');
+            // console.log('Using device orientation');
             window.addEventListener('deviceorientation', function(e) {
                 mouse.x = (canvas.clientWidth / 2) - ((e.gamma / 90) * (canvas.clientWidth / 2) * 2);
                 mouse.y = (canvas.clientHeight / 2) - ((e.beta / 90) * (canvas.clientHeight / 2) * 2);
@@ -155,12 +156,12 @@ Template.main.onRendered(function() {
         }
         else {
             // Mouse move listener
-            console.log('Using mouse movement');
-            document.body.addEventListener('mousemove', function(e) {
+            // console.log('Using mouse movement');
+           // document.body.addEventListener('mousemove', function(e) {
                 //console.log('moved');
-                mouse.x = e.clientX;
-                mouse.y = e.clientY;
-            });
+             //   mouse.x = e.clientX;
+               // mouse.y = e.clientY;
+            //});
         }
 
         // Random motion

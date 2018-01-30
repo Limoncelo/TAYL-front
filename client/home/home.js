@@ -9,11 +9,11 @@ Template.main.events({
                 return Session.get('location');
             }
         });
-        https://github.com/Limoncelo/TAYL-front.git
+        // https://github.com/Limoncelo/TAYL-front.git
 
-        var regEx = new RegExp('(https|http):\/\/github\.com\/(.*)\/(.*)\.git', 'i');
+        var regEx = new RegExp(/(https|http):\/\/github.com\/(.*)\/(.*).git(\/?)/);
 
-        if(regEx ===  event.target.gitURL.value) {
+        if(regEx.test(event.target.gitURL.value)) {
             var gitURL = event.target.gitURL.value;
             Meteor.call('getAPIData', gitURL, function (err, res) {
                 // The method call sets the Session variable to the callback value
@@ -22,11 +22,14 @@ Template.main.events({
 
                 } else {
                     Session.set('location', res);
+                    console.log(res);
                     return res;
                 }
             });
 
             Router.go('waiting');
+        } else {
+
         }
 
     }

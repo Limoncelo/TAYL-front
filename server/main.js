@@ -9,6 +9,8 @@ Meteor.startup(() => {
             var apiUrl = 'http://127.0.0.1:8000/queues/startTestProcess?urlGit=' + url;
             // asynchronous call to the dedicated API calling function
             var response = Meteor.wrapAsync(apiCall)(apiUrl);
+
+            // var response = Meteor.HTTP.get(apiUrl).data.results;
             return response;
         }
     });
@@ -23,6 +25,7 @@ Meteor.startup(() => {
             // A successful API call returns no error
             // but the contents from the JSON response
             callback(null, response);
+            return response;
 
         } catch (error) {
             // If the API responded with an error message and a payload

@@ -11,6 +11,7 @@ body {
     margin: 0;
     padding: 0;
     font-family: "Source Sans Pro";
+    color: #fffaea;
 }
 
 h1, .navbar a.navbar-brand, .navbar a.navbar-brand:hover, p, .fa.fa-spinner, .navbar a.navbar-brand:visited {
@@ -76,4 +77,13 @@ body {
 
 .progressbarLabel {
     font-size: 50px;
+}
+
+.see-more, .see-more:hover, .see-more:visited {
+    color: #fffaea;
+    text-decoration: none;
+}
+
+#options {
+    color: #fffaea;
 }

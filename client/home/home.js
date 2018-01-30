@@ -1,4 +1,14 @@
-
+Template.home.rendered = function() {
+    $('.see-more').click(function () {
+        if($('.fa').hasClass('fa-caret-right')){
+            $('.fa').removeClass('fa-caret-right');
+            $('.fa').addClass('fa-caret-down');
+        } else {
+            $('.fa').removeClass('fa-caret-down');
+            $('.fa').addClass('fa-caret-right');
+        }
+    });
+}
 Template.main.events({
     'submit .gitSubmit'(event) {
         event.preventDefault();
@@ -18,10 +28,10 @@ Template.main.events({
             Meteor.call('getAPIData', gitURL, function (err, res) {
                 // The method call sets the Session variable to the callback value
                 if (err) {
-                    Session.set('location', {error: err});
-
+                    // Session.set('location', {error: err});
+                    console.log(err);
                 } else {
-                    Session.set('location', res);
+                    // Session.set('location', res);
                     console.log(res);
                     return res;
                 }
@@ -29,7 +39,7 @@ Template.main.events({
 
             Router.go('waiting');
         } else {
-
+            $('#warning').html("<p>Attention votre lien git n'est pas valide</p>");
         }
 
     }

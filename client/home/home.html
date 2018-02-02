@@ -2,13 +2,13 @@
     <div class="container mainCnt" style="height: 100vh">
         <div class="row text-center">
             <form class="gitSubmit">
-                <h1>Votre lien git ici</h1>
+                <h1>Analysez votre code php</h1>
                 <br>
                 <br>
                 <div class="form-group">
-                    <input class="form-control" type="text" placeholder="Lien de votre git" id="gitId" name="gitURL">
+                    <input class="form-control" type="text" placeholder="Votre lien git" id="gitId" name="urlGit" value="{{urlGit}}">
                     <br>
-                    <input class="form-control" type="email" placeholder="Votre adresse e-mail" id="mail" name="mail">
+                    <input class="form-control" type="email" placeholder="Votre adresse e-mail" id="mail" name="mail" value="{{mail}}">
                     <br>
                     <a class="see-more" data-toggle="collapse" href="#options" role="button" aria-expanded="false" aria-controls="options">
                         <i class="fa fa-caret-right" aria-hidden="true"></i>&nbsp;&nbsp;Plus d'options
@@ -19,7 +19,7 @@
                         <div class="container">
                             <div class="form-group text-left">
                                 <div class="form-check">
-                                    <h2>Tests à réaliser</h2>
+                                    <h2>Tests à réaliser :</h2>
                                     <input type="checkbox" class="form-check-input" id="phploc" name="phploc" checked>
                                     <label class="form-check-label" for="phploc">PhpLoc</label>
                                 </div>

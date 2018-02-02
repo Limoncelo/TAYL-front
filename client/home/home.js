@@ -1,47 +1,66 @@
 Template.home.rendered = function() {
-    $('.see-more').click(function () {
-        if($('.fa').hasClass('fa-caret-right')){
-            $('.fa').removeClass('fa-caret-right');
-            $('.fa').addClass('fa-caret-down');
-        } else {
-            $('.fa').removeClass('fa-caret-down');
-            $('.fa').addClass('fa-caret-right');
-        }
+    $('#options').on('show.bs.collapse', function () {
+        $('.fa').removeClass('fa-caret-right');
+        $('.fa').addClass('fa-caret-down');
     });
-}
+    $('#options').on('hide.bs.collapse', function() {
+        $('.fa').removeClass('fa-caret-down');
+        $('.fa').addClass('fa-caret-right');
+    });
+};
+
 Template.main.events({
     'submit .gitSubmit'(event) {
         event.preventDefault();
 
-        Template.home.helpers({
-            //récupérer variable de session créée par le retour de l'api
-            location: function () {
-                return Session.get('location');
-            }
-        });
-        // https://github.com/Limoncelo/TAYL-front.git
 
         var regEx = new RegExp(/(https|http):\/\/github.com\/(.*)\/(.*).git(\/?)/);
+        var regExMail = new RegExp(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);
 
-        if(regEx.test(event.target.gitURL.value)) {
-            var gitURL = event.target.gitURL.value;
-            Meteor.call('getAPIData', gitURL, function (err, res) {
+        if(regEx.test(event.target.urlGit.value) && regExMail.test(event.target.mail.value)) {
+            var urlGit = event.target.urlGit.value;
+            var mailUser = event.target.mail.value;
+
+            //appel de la méthode
+            Meteor.call('getAPIData', urlGit, mailUser, function (err, res) {
                 // The method call sets the Session variable to the callback value
                 if (err) {
-                    // Session.set('location', {error: err});
-                    console.log(err);
+                    console.log('git submit error: ' , err);
                 } else {
-                    // Session.set('location', res);
-                    console.log(res);
+                    Session.set({
+                        'urlGit' : event.target.urlGit.value,
+                        'client mail' : event.target.mail.value,
+                        'idJobList' : res.idJobList
+                    });
+                    console.log('git submit success: ' , res);
+
+                    //redirection
+                    Router.go('waiting');
                     return res;
                 }
             });
-
-            Router.go('waiting');
         } else {
-            $('#warning').html("<p>Attention votre lien git n'est pas valide</p>");
+            $('#warning').html("<p>Attention veuillez vérifier votre lien git et votre email.</p>");
         }
 
-    }
+        Template.home.helpers({
+            //récupérer en variable de session les données entrées par l'utilisateur
+            urlGit: function () {
+                return Session.get('urlGit');
+            },
+            mail: function () {
+                return Session.get('mail');
+            }
+        });
 
+        Template.done.helpers({
+            //récupérer variable de session créée par le retour de l'api
+            urlGit: function () {
+                return Session.get('urlGit');
+            },
+            mail: function () {
+                return Session.get('mail');
+            }
+        });
+    }
 });

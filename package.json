@@ -8,6 +8,7 @@
     "babel-runtime": "^6.26.0",
     "d": "^1.0.0",
     "delaunay-fast": "^1.0.1",
-    "meteor-node-stubs": "^0.3.2"
+    "meteor-node-stubs": "^0.3.2",
+    "progressbar.js": "^1.0.1"
   }
 }

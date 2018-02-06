@@ -2,16 +2,41 @@
   <title>TAYL</title>
 </head>
 
-<body>
-  <canvas id="stars">
-  </canvas>
-  <div class="appContent">
-    <nav class="navbar navbar-toggleable-md bg-faded">
+    <body>
+      <canvas id="stars">
+      </canvas>
+      <div class="appContent">
+        <nav class="navbar navbar-toggleable-md bg-faded">
 
-      <a class="navbar-brand" href="/">TAYL</a>
+          <a class="navbar-brand" href="/">TAYL</a>
 
-    </nav>
-  {{>yield}}
-  </div>
-</body>
+        </nav>
+      {{>yield}}
+          <br><br><br>
+      <div class="text-center payment">
+          <br>
+          <div id="paypal-button"></div>
+    <div class="container">
+        <div class="row">
+              <div class="col-6">
+                  <br>
+                  <h3>Bitcoin donation :</h3>
+              <br>
+              <img src="" alt="" id="bImg" class="img-fluid">
+              <br>
+              <br>
+              </div>
+            <div class="col-6">
+                <br>
+                <h3>Ether donation :</h3>
+                <br>
+                <img src="" alt="" id="eImg" class="img-fluid">
+                <br>
+                <br>
+            </div>
+        </div>
+    </div>
+      </div>
+      </div>
+    </body>
 </template>

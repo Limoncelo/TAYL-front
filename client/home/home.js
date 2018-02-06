@@ -7,12 +7,29 @@ Template.home.rendered = function() {
         $('.fa').removeClass('fa-caret-down');
         $('.fa').addClass('fa-caret-right');
     });
+
+
+    Meteor.call('getGitHub', function (err, res) {
+        // The method call sets the Session variable to the callback value
+        if (err) {
+            console.log('client github error: ', err);
+        } else {
+            console.log(res);
+        }
+    });
 };
 
 Template.main.events({
     'submit .gitSubmit'(event) {
+        var tests = new Array();
         event.preventDefault();
-
+        $('#options input').each(function (index, value) {
+            if(value.checked) {
+                tests[value.name] = 1;
+            } else {
+                tests[value.name] = 0;
+            }
+        });
 
         var regEx = new RegExp(/(https|http):\/\/github.com\/(.*)\/(.*).git(\/?)/);
         var regExMail = new RegExp(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);
@@ -22,14 +39,14 @@ Template.main.events({
             var mailUser = event.target.mail.value;
 
             //appel de la méthode
-            Meteor.call('getAPIData', urlGit, mailUser, function (err, res) {
+            Meteor.call('getAPIData', urlGit, mailUser, tests, function (err, res) {
                 // The method call sets the Session variable to the callback value
                 if (err) {
                     console.log('git submit error: ' , err);
                 } else {
                     Session.set({
                         'urlGit' : event.target.urlGit.value,
-                        'client mail' : event.target.mail.value,
+                        'mail' : event.target.mail.value,
                         'idJobList' : res.idJobList
                     });
                     console.log('git submit success: ' , res);

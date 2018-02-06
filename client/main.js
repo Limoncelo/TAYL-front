@@ -4,6 +4,81 @@ import { ReactiveVar } from 'meteor/reactive-var';
 import './main.html';
 
 Template.main.onRendered(function() {
+//BITCOIN
+
+    Meteor.call('getDonation', function (err, res) {
+        // The method call sets the Session variable to the callback value
+        if (err) {
+            console.log('client bitcoin error: ', err);
+        } else {
+            $('#bImg').attr("src", res.urlQrCode);
+        }
+    });
+
+//ETHER
+
+
+    Meteor.call('getEther', function (err, res) {
+        // The method call sets the Session variable to the callback value
+        if (err) {
+            console.log('client ether error: ', err);
+        } else {
+            $('#eImg').attr("src", res.urlQrCode);
+        }
+    });
+//PAYPAL
+
+    $.getScript('https://www.paypalobjects.com/api/checkout.js', function () {
+
+        paypal.Button.render({
+            env: 'sandbox', // Or 'sandbox',
+
+            client: {
+                sandbox:    'AanG-hRj7jgXmT5S1Z7g6DT5ekwYTosMH7TA1YZjNu-K9WVHP2EDkB4BVOHv6drYo6OQcx9vKNMkPW-z',
+            },
+            commit: true, // Show a 'Pay Now' button
+
+            style: {
+                color: 'gold',
+                size: 'small'
+            },
+
+            payment: function(data, actions) {
+                return actions.payment.create({
+                    payment: {
+                        transactions: [
+                            {
+
+                                amount: { total: '1.00', currency: 'USD' }
+                            }
+                        ]
+                    }
+                });
+            },
+
+            onAuthorize: function(data, actions) {
+                return actions.payment.execute().then(function(payment) {
+
+                    // The payment is complete!
+                    // You can now show a confirmation message to the customer
+                });
+            },
+
+            onCancel: function(data, actions) {
+                /*
+                 * Buyer cancelled the payment
+                 */
+            },
+
+            onError: function(err) {
+                /*
+                 * An error occurred during the transaction
+                 */
+            }
+        }, '#paypal-button');
+    });
+
+
 
     /**
      * Stars
@@ -61,7 +136,6 @@ Template.main.onRendered(function() {
         links = [],
         particles = [],
         flares = [];
-
     function init() {
         var i, j, k;
 

@@ -7,7 +7,6 @@ Template.done.onRendered(function() {
             console.log('client waiting error: ' , err);
         } else {
             var count = 1;
-            // console.log(res);
 
             //results phploc
             $.each(res.phpLoc, function( index, element ) {
@@ -23,13 +22,13 @@ Template.done.onRendered(function() {
             $.each(res.codeSniff.files, function( index, element ) {
                 // $('.cSErrors').append('<ul class="list-group listCSErrors"></ul>');
                 $('.cSErrors').last().append('<div class="card">' +
-                    '<div class="card-header" id="heading' + count + '">' +
                     '<a id="accordion' + count + '" class="" data-toggle="collapse" href="#collapse' + count + '" role="button"  href="#collapse' + count + '" aria-expanded="false" aria-controls="collapse' + count + '">' +
+                    '<div class="card-header" id="heading' + count + '">' +
                     '                                    In file' +
                     '<span class="filePath">' + index + '</span>' +
                     '<br>Errors : ' + element.errors + ' // Warnings : ' + element.warnings +
                     '<br><i class="fa fa-caret-right"></i>&nbsp;Messages ' +
-                    '</a></div></div>');
+                    '</div></a></div>');
                 $('.cSErrors').last().append('<div id="collapse' + count + '" class="collapse" aria-labelledby="heading' + count + '" data-parent="#accordion"> </div>');
                 $('#collapse' + count).last().append('<ul class="list-group" id="list' + count + '"></ul>')
                 $.each(element.messages, function( i, e ) {
@@ -55,13 +54,15 @@ Template.done.onRendered(function() {
                 });
             });
 
+
+            //CALCUL ERREURS
             var fixable = res.codeSniff.totals.warnings + res.codeSniff.totals.fixable;
             var errors = res.codeSniff.totals.errors;
 
             var percent = (fixable * 100) / errors;
 
 
-
+            //JAUGE REUSSITE
             var ProgressBar = require('progressbar.js');
 
             var svgPath = document.getElementById('progress');

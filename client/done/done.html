@@ -1,21 +1,43 @@
 <template name="done">
-    <div class="container">
 
-        <br>
-        <br>
-        <div class="col-12 text-center">
-            <h1>Liste des erreurs de votre code</h1>
-            <div class="" id="progress"></div>
+    <div class="container" style="z-index: 1000">
+
+        <div class="col-12" style="z-index: 1000">
+            <a href="{{pathFor 'home'}}" class="text-left"><i class="fa fa-arrow-left"></i>&nbsp;&nbsp;Retour à la page d'accueil</a>
+            <br>
+            <div id="progress"></div>
             <br>
             <br>
-            <div class="row">
-                <ul class="list-group">
-                    <li class="list-group-item">Cras justo odio</li>
-                    <li class="list-group-item">Dapibus ac facilisis in</li>
-                    <li class="list-group-item">Morbi leo risus</li>
-                    <li class="list-group-item">Porta ac consectetur ac Porta ac consectetur ac</li>
-                    <li class="list-group-item">Vestibulum at eros</li>
-                </ul>
+            <h1 class="text-center">Résultats de l'analyse</h1>
+<br><br>
+            <div class="row text-center">
+                <div class="col-3">
+                    <h2>Résumé de votre code</h2>
+                    <br>
+                    <p>URL git : {{urlGit}}</p>
+                    <p>Mail : {{mail}}</p>
+                    <ul class="list-group" id="phpLoc">
+
+                    </ul>
+                </div>
+                <div class="col-9">
+                    <h2>Liste des erreurs de votre code</h2>
+                    <br>
+                    <div class="row">
+
+                        <ul class="list-group" id="codeSniffer">
+
+                        </ul>
+                    </div>
+                    <div class="row">
+                        <br>
+                        <br>
+                        <div class="cSErrors" id="accordion">
+
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
     </div>

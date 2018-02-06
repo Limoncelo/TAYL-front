@@ -1,14 +1,41 @@
 <template name="home">
     <div class="container mainCnt">
         <div class="row text-center">
-            <form>
-                <h1>Votre lien git ici</h1>
+            <form class="gitSubmit">
+                <h1>Analysez votre code php</h1>
                 <br>
                 <br>
                 <div class="form-group">
-                    <input class="form-control" type="text" placeholder="Lien de votre git" id="gitId">
+                    <input class="form-control" type="text" placeholder="Votre lien git" id="gitId" name="urlGit" value="{{urlGit}}">
+                    <br>
+                    <input class="form-control" type="email" placeholder="Votre adresse e-mail" id="mail" name="mail" value="{{mail}}">
+                    <br>
+                    <a class="see-more" data-toggle="collapse" href="#options" role="button" aria-expanded="false" aria-controls="options">
+                        <i class="fa fa-caret-right" aria-hidden="true"></i>&nbsp;&nbsp;Plus d'options
+                    </a>
+<br>
                 </div>
-                <br>
+
+                    <div class="collapse" id="options">
+                        <div class="container">
+                            <div class="form-group text-left">
+                                <div class="form-check">
+                                    <h2>Tests à réaliser :</h2>
+                                    <input type="checkbox" class="form-check-input" id="phploc" name="phploc" checked>
+                                    <label class="form-check-label" for="phploc">PhpLoc</label>
+                                </div>
+                                <div class="form-check">
+                                    <input type="checkbox" class="form-check-input" id="codesniffer" name="codesniffer" checked>
+                                    <label class="form-check-label" for="codesniffer">CodeSniffer</label>
+                                </div>
+                                <div class="form-check">
+                                    <input type="checkbox" class="form-check-input" id="parallellint" name="parallellint" checked>
+                                    <label class="form-check-label" for="parallellint">Parallel Lint</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                <div id="warning"></div>
                 <br>
                     <button type="submit" class="btn btn-primary">Lancer l'analyse</button>
             </form>

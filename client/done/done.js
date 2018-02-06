@@ -1,4 +1,5 @@
 
+
 Template.done.onRendered(function() {
 
     Meteor.call('getJsonFile', 1, function (err, res) {
@@ -128,5 +129,6 @@ Template.done.onRendered(function() {
         }
 
     });
+
 
 });

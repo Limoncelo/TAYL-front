@@ -1,0 +1,10 @@
+### Applications Code Container #############################
+  meteor:
+   build: .
+   container_name: meteor
+   ports:
+     - "80:8030"
+   environment:
+       MONGO_URL: mongodb://mongo
+  mongo:
+   image: mongo:latest

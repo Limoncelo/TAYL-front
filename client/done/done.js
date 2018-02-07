@@ -2,7 +2,7 @@
 
 Template.done.onRendered(function() {
 
-    Meteor.call('getJsonFile', 1, function (err, res) {
+    Meteor.call('getAPIData', urlProd + '/getJson' , function (err, res) {
         // The method call sets the Session variable to the callback value
         if (err) {
             console.log('client waiting error: ' , err);

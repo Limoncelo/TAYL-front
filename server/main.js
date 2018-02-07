@@ -3,7 +3,7 @@ import { Meteor } from 'meteor/meteor';
 Meteor.startup(() => {
 
     Meteor.methods({
-        'getAPIData': function (url, mailUser, tests) {
+        'postAPIData': function (url, mailUser, tests) {
             // avoid blocking other method calls from the same client
             this.unblock();
             var urlGit = url;
@@ -18,7 +18,7 @@ Meteor.startup(() => {
                     params += '&' + index + '=' + tests[index];
                 }
                 // API URL + git url from input
-                var apiUrl = 'http://127.0.0.1:8000/queues/startTestProcess?urlGit=' + urlGit + '&mailUser=' + mailUser + params;
+                var apiUrl = URL_PROD + '/queues/startTestProcess?urlGit=' + urlGit + '&mailUser=' + mailUser + params;
                 // asynchronous call to the dedicated API calling function
                 var id = Meteor.wrapAsync(apiCall)(apiUrl);
 
@@ -29,24 +29,8 @@ Meteor.startup(() => {
             this.unblock();
             var idJobList = id;
 
-            var apiUrl = 'http://127.0.0.1:8000/getStatus?idJobList=' + idJobList;
+            var apiUrl = URL_PROD + '/getStatus?idJobList=' + idJobList;
             // var apiUrl = 'http://192.168.1.200:61800/getStatus?idJobList=' + idJobList;
-            var response = Meteor.wrapAsync(apiCall)(apiUrl);
-
-            return response;
-        },
-        'getJsonFile' : function () {
-            this.unblock();
-
-            var apiUrl = 'http://127.0.0.1:8000/getJson';
-            var response = Meteor.wrapAsync(apiCall)(apiUrl);
-
-            return response;
-        },
-        'getDonation' : function () {
-            this.unblock();
-
-            var apiUrl = 'http://127.0.0.1:8000/donationBitCoin';
             var response = Meteor.wrapAsync(apiCall)(apiUrl);
 
             return response;
@@ -59,14 +43,46 @@ Meteor.startup(() => {
 
             return response;
         },
-        'getEther' : function () {
+        'getAPIData' : function (url) {
             this.unblock();
 
-            var apiUrl = 'http://127.0.0.1:8000/donationEther';
+            var apiUrl = url;
             var response = Meteor.wrapAsync(apiCall)(apiUrl);
 
             return response;
-        }
+        },
+        // 'getJsonFile' : function () {
+        //     this.unblock();
+        //
+        //     var apiUrl = 'http://192.168.1.200:61800/getJson';
+        //     var response = Meteor.wrapAsync(apiCall)(apiUrl);
+        //
+        //     return response;
+        // },
+        // 'getDonation' : function () {
+        //     this.unblock();
+        //
+        //     var apiUrl = 'http://192.168.1.200:61800/donationBitCoin';
+        //     var response = Meteor.wrapAsync(apiCall)(apiUrl);
+        //
+        //     return response;
+        // },
+        // 'getGitHub' : function () {
+        //     this.unblock();
+        //
+        //     var apiUrl = 'https://github.com/login/oauth/authorize?scope=user:email&client_id=90b9db7e94aa419b9073';
+        //     var response = Meteor.wrapAsync(apiCall)(apiUrl);
+        //
+        //     return response;
+        // },
+        // 'getEther' : function () {
+        //     this.unblock();
+        //
+        //     var apiUrl = 'http://192.168.1.200:61800/donationEther';
+        //     var response = Meteor.wrapAsync(apiCall)(apiUrl);
+        //
+        //     return response;
+        // }
     });
 
     var apiCall = function (apiUrl, callback) {

@@ -6,7 +6,7 @@ import './main.html';
 Template.main.onRendered(function() {
 //BITCOIN
 
-    Meteor.call('getDonation', function (err, res) {
+    Meteor.call('getAPIData', URL_PROD + '/donationBitCoin', function (err, res) {
         // The method call sets the Session variable to the callback value
         if (err) {
             console.log('client bitcoin error: ', err);
@@ -18,7 +18,7 @@ Template.main.onRendered(function() {
 //ETHER
 
 
-    Meteor.call('getEther', function (err, res) {
+    Meteor.call('getAPIData', URL_PROD + '/donationEther', function (err, res) {
         // The method call sets the Session variable to the callback value
         if (err) {
             console.log('client ether error: ', err);

@@ -39,10 +39,11 @@ Template.main.events({
             var mailUser = event.target.mail.value;
 
             //appel de la méthode
-            Meteor.call('getAPIData', urlGit, mailUser, tests, function (err, res) {
+            Meteor.call('postAPIData', urlGit, mailUser, tests, function (err, res) {
                 // The method call sets the Session variable to the callback value
                 if (err) {
                     console.log('git submit error: ' , err);
+
                 } else {
                     Session.set({
                         'urlGit' : event.target.urlGit.value,

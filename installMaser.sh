@@ -1,6 +1,6 @@
 #!/bin/bash
 TRAGET="./"
-GIT_DIR="./"
+GIT_DIR="./.git"
 BRANCH="master"
 
 while read oldrev newrev ref

@@ -21,6 +21,7 @@ Template.home.rendered = function() {
 
 Template.main.events({
     'submit .gitSubmit'(event) {
+        $("#submitBtn").prop("disabled",true);
         var tests = new Array();
         event.preventDefault();
         $('#options input').each(function (index, value) {
@@ -37,7 +38,8 @@ Template.main.events({
         if(regEx.test(event.target.urlGit.value) && regExMail.test(event.target.mail.value)) {
             var urlGit = event.target.urlGit.value;
             var mailUser = event.target.mail.value;
-
+            $('#submitBtn').prop("disabled",true);
+            $('#submitBtn').html('<i class="fa fa-spinner fa-pulse no-margin"></i>&nbsp;Lancement de l\'analyse');
             //appel de la méthode
             Meteor.call('postAPIData', urlGit, mailUser, tests, function (err, res) {
                 // The method call sets the Session variable to the callback value

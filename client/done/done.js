@@ -1,27 +1,30 @@
-
-
-Template.done.onRendered(function() {
-
-    Meteor.call('getAPIData', urlProd + '/getJson' , function (err, res) {
+Template.done.onRendered(function () {
+    var regEx = new RegExp(/(https|http):\/\/github.com\/(.*)\/(.*).git(\/?)/);
+    var projectName = regEx.exec(Session.get('urlGit'))[3];
+    Meteor.call('getJsonFile', projectName, function (err, res) {
         // The method call sets the Session variable to the callback value
         if (err) {
-            console.log('client waiting error: ' , err);
+            console.log('client done error: ', err);
+            console.log('response', res);
         } else {
+            console.log('in else');
+            res = res.json;
             var count = 1;
+            console.log(res);
 
-            //results phploc
-            $.each(res.phpLoc, function( index, element ) {
-                $('#phpLoc').append('<li class="list-group-item">' + index + ' : ' + element + '</li>' );
+            // results phploc
+            // $.each(res.phpLoc, function( index, element ) {
+            //     $('#phpLoc').append('<li class="list-group-item">' + index + ' : ' + element + '</li>' );
+            // });
+
+            // results codesniff global
+            $.each(res.codeSniff.totals, function (index, element) {
+                $('#codeSniffer').append('<li class="list-group-item">' + index + ' : ' + element + '</li>');
             });
 
-            //results codesniff global
-            $.each(res.codeSniff.totals, function( index, element ) {
-                $('#codeSniffer').append('<li class="list-group-item">'+ index + ' : ' + element  + '</li>');
-            });
-
-            //results codesniff detail
-            $.each(res.codeSniff.files, function( index, element ) {
-                // $('.cSErrors').append('<ul class="list-group listCSErrors"></ul>');
+            // results codesniff detail
+            $.each(res.codeSniff.files, function (index, element) {
+                $('.cSErrors').append('<ul class="list-group listCSErrors"></ul>');
                 $('.cSErrors').last().append('<div class="card">' +
                     '<a id="accordion' + count + '" class="" data-toggle="collapse" href="#collapse' + count + '" role="button"  href="#collapse' + count + '" aria-expanded="false" aria-controls="collapse' + count + '">' +
                     '<div class="card-header" id="heading' + count + '">' +
@@ -31,13 +34,16 @@ Template.done.onRendered(function() {
                     '<br><i class="fa fa-caret-right"></i>&nbsp;Messages ' +
                     '</div></a></div>');
                 $('.cSErrors').last().append('<div id="collapse' + count + '" class="collapse" aria-labelledby="heading' + count + '" data-parent="#accordion"> </div>');
-                $('#collapse' + count).last().append('<ul class="list-group" id="list' + count + '"></ul>')
-                $.each(element.messages, function( i, e ) {
-                    $('#list' + count).last().append('<li class="list-group-item">Type : ' + e.type + ' // Message : ' + e.message +' // At line : ' + e.line +   ' </li>');
+                $('#collapse' + count).last().append('<ul class="list-group" id="list' + count + '"></ul>');
+                $.each(element.messages, function (i, e) {
+                    $('#list' + count).last().append('<li class="list-group-item">Type : ' + e.type + ' // Message : ' + e.message + ' // At line : ' + e.line + ' </li>');
                 });
-                // $.each(index, function( index, element ) {
+
+                // console.log(index);
+                // $.each(index, function (index, element) {
                 //     $('.list-group').last().append('<li class="list-group-item">' + element + '</li>');
                 // });
+
                 count++;
 
 
@@ -48,21 +54,22 @@ Template.done.onRendered(function() {
                     $(clicked).find('.fa').addClass('fa-caret-down');
 
                 });
-                $('#accordion').on('hide.bs.collapse', function(e) {
+                $('#accordion').on('hide.bs.collapse', function (e) {
                     var clicked = $(document).find("[href='#" + $(e.target).attr('id') + "']");
                     $(clicked).find('.fa').removeClass('fa-caret-down');
                     $(clicked).find('.fa').addClass('fa-caret-right');
                 });
             });
 
-
+            console.log('before total');
             //CALCUL ERREURS
             var fixable = res.codeSniff.totals.warnings + res.codeSniff.totals.fixable;
             var errors = res.codeSniff.totals.errors;
+            console.log('fix:'+fixable+'errors'+errors);
 
             var percent = (fixable * 100) / errors;
 
-
+            // var percent = 1;
             //JAUGE REUSSITE
             var ProgressBar = require('progressbar.js');
 
@@ -120,7 +127,7 @@ Template.done.onRendered(function() {
             });
             path.animate(percent / 100, {
                 duration: 800
-            }, function() {
+            }, function () {
                 //callback
             });
             return res;

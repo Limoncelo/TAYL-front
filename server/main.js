@@ -51,14 +51,13 @@ Meteor.startup(() => {
 
             return response;
         },
-        // 'getJsonFile' : function () {
-        //     this.unblock();
-        //
-        //     var apiUrl = 'http://192.168.1.200:61800/getJson';
-        //     var response = Meteor.wrapAsync(apiCall)(apiUrl);
-        //
-        //     return response;
-        // },
+        'getJsonFile' : function (projectName) {
+            this.unblock();
+
+            var apiUrl = URL_PROD + '/getJson?projetGit=' + projectName;
+            var response = Meteor.wrapAsync(apiCall)(apiUrl);
+            return response;
+        },
         // 'getDonation' : function () {
         //     this.unblock();
         //

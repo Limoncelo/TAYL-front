@@ -1,6 +1,10 @@
 Template.done.onRendered(function () {
     var regEx = new RegExp(/(https|http):\/\/github.com\/(.*)\/(.*).git(\/?)/);
     var projectName = regEx.exec(Session.get('urlGit'))[3];
+
+    $('.show').click(function () {
+        $('.cSErrors').css('display', 'block');
+    })
     Meteor.call('getJsonFile', projectName, function (err, res) {
         // The method call sets the Session variable to the callback value
         if (err) {

@@ -92,13 +92,13 @@ body {
 }
 
 #progress {
-    width: 50%;
+    width: 80%;
     margin: 0 auto;
 }
 
 .progressbarLabel {
 
-    font-size: 30px;
+    font-size: 25px;
     text-align: center;
 }
 
@@ -131,4 +131,8 @@ h2 {
 
 .list-group .list-group-item {
     background-color: rgba(0, 0, 0, 0.03);
+}
+
+.cSErrors {
+    display: none;
 }

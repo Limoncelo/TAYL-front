@@ -5,12 +5,12 @@
         <div class="col-12" style="z-index: 1000">
             <a href="{{pathFor 'home'}}" class="text-left"><i class="fa fa-arrow-left"></i>&nbsp;&nbsp;Retour à la page d'accueil</a>
             <br>
-            <div id="progress"></div>
             <br>
             <br>
             <h1 class="text-center">Résultats de l'analyse</h1>
 <br><br>
-            <div class="row text-center">
+            <div class="row">
+
                 <div class="col-3">
                     <h2>Résumé de votre code</h2>
                     <br>
@@ -19,18 +19,26 @@
                     <ul class="list-group" id="phpLoc">
 
                     </ul>
+
+                    <ul class="list-group" id="codeSniffer">
+
+                    </ul>
                 </div>
                 <div class="col-9">
-                    <h2>Liste des erreurs de votre code</h2>
+                    <div id="progress"></div>
+
+
+                </div>
+            </div>
+                <br>
+            <br>
+<br><br>
+            <div class="row text-center">
+
+                <div class="col-12">
+                    <h2 class="show">Voir la liste des erreurs de votre code</h2>
                     <br>
                     <div class="row">
-
-                        <ul class="list-group" id="codeSniffer">
-
-                        </ul>
-                    </div>
-                    <div class="row">
-                        <br>
                         <br>
                         <div class="cSErrors" id="accordion">
 

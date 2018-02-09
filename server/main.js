@@ -44,7 +44,7 @@ Meteor.startup(() => {
         },
         'getJsonFile' : function (projectName, idJobList) {
             this.unblock();
-
+            idJobList = 15;
             var apiUrl = URL_PROD + '/getJson?projetGit=' + projectName + '&idJobList=' + idJobList;
             var response = Meteor.wrapAsync(apiCall)(apiUrl);
             return response;

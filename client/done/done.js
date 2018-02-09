@@ -12,7 +12,7 @@ var iTab = Math.floor(Math.random() * (phrases.length));
 Template.done.onRendered(function () {
     var regEx = new RegExp(/(https|http):\/\/github.com\/(.*)\/(.*).git(\/?)/);
     var projectName = regEx.exec(Session.get('urlGit'))[3];
-    var idJobList = 202;
+    var idJobList = Session.get('idJobList');
     //
     // $('.show').click(function () {
     //     $('.cSErrors').css('display', 'block');

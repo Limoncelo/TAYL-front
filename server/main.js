@@ -30,15 +30,6 @@ Meteor.startup(() => {
             var idJobList = id;
 
             var apiUrl = URL_PROD + '/getStatus?idJobList=' + idJobList;
-            // var apiUrl = 'http://192.168.1.200:61800/getStatus?idJobList=' + idJobList;
-            var response = Meteor.wrapAsync(apiCall)(apiUrl);
-
-            return response;
-        },
-        'getGitHub' : function () {
-            this.unblock();
-
-            var apiUrl = 'https://github.com/login/oauth/authorize?scope=user:email&client_id=90b9db7e94aa419b9073';
             var response = Meteor.wrapAsync(apiCall)(apiUrl);
 
             return response;
@@ -51,37 +42,13 @@ Meteor.startup(() => {
 
             return response;
         },
-        'getJsonFile' : function (projectName) {
+        'getJsonFile' : function (projectName, idJobList) {
             this.unblock();
 
-            var apiUrl = URL_PROD + '/getJson?projetGit=' + projectName;
+            var apiUrl = URL_PROD + '/getJson?projetGit=' + projectName + '&idJobList=' + idJobList;
             var response = Meteor.wrapAsync(apiCall)(apiUrl);
             return response;
         },
-        // 'getDonation' : function () {
-        //     this.unblock();
-        //
-        //     var apiUrl = 'http://192.168.1.200:61800/donationBitCoin';
-        //     var response = Meteor.wrapAsync(apiCall)(apiUrl);
-        //
-        //     return response;
-        // },
-        // 'getGitHub' : function () {
-        //     this.unblock();
-        //
-        //     var apiUrl = 'https://github.com/login/oauth/authorize?scope=user:email&client_id=90b9db7e94aa419b9073';
-        //     var response = Meteor.wrapAsync(apiCall)(apiUrl);
-        //
-        //     return response;
-        // },
-        // 'getEther' : function () {
-        //     this.unblock();
-        //
-        //     var apiUrl = 'http://192.168.1.200:61800/donationEther';
-        //     var response = Meteor.wrapAsync(apiCall)(apiUrl);
-        //
-        //     return response;
-        // }
     });
 
     var apiCall = function (apiUrl, callback) {

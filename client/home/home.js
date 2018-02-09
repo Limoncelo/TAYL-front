@@ -8,15 +8,6 @@ Template.home.rendered = function() {
         $('.fa').addClass('fa-caret-right');
     });
 
-
-    Meteor.call('getGitHub', function (err, res) {
-        // The method call sets the Session variable to the callback value
-        if (err) {
-            console.log('client github error: ', err);
-        } else {
-            console.log(res);
-        }
-    });
 };
 
 Template.main.events({
@@ -52,7 +43,6 @@ Template.main.events({
                         'mail' : event.target.mail.value,
                         'idJobList' : res.idJobList
                     });
-                    console.log('git submit success: ' , res);
 
                     //redirection
                     Router.go('waiting');

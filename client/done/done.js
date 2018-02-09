@@ -1,20 +1,30 @@
+var phrases = [
+    ' % de votre code est irréprochable',
+    ' % of your code is legen... wait for it... dary !',
+    ' % de votre code ne vient pas de la table d\'en face',
+    ' % de votre code n\'est pas piqué des hannetons',
+    ' % de votre code a la lumière à tous les étages',
+    ' % de votre code est puissant'
+];
+
+var iTab = Math.floor(Math.random() * (phrases.length));
+
 Template.done.onRendered(function () {
     var regEx = new RegExp(/(https|http):\/\/github.com\/(.*)\/(.*).git(\/?)/);
     var projectName = regEx.exec(Session.get('urlGit'))[3];
-
-    $('.show').click(function () {
-        $('.cSErrors').css('display', 'block');
-    })
-    Meteor.call('getJsonFile', projectName, function (err, res) {
+    var idJobList = Session.get('idJobList');
+    //
+    // $('.show').click(function () {
+    //     $('.cSErrors').css('display', 'block');
+    // })
+    console.log(idJobList);
+    Meteor.call('getJsonFile', projectName, idJobList, function (err, res) {
         // The method call sets the Session variable to the callback value
         if (err) {
             console.log('client done error: ', err);
-            console.log('response', res);
         } else {
-            console.log('in else');
             res = res.json;
             var count = 1;
-            console.log(res);
 
             // results phploc
             // $.each(res.phpLoc, function( index, element ) {
@@ -22,8 +32,17 @@ Template.done.onRendered(function () {
             // });
 
             // results codesniff global
+            var clN = '';
             $.each(res.codeSniff.totals, function (index, element) {
-                $('#codeSniffer').append('<li class="list-group-item">' + index + ' : ' + element + '</li>');
+                clN = '';
+                if(index == 'errors') {
+                    clN = 'red';
+                } else if (index == 'warnings') {
+                    clN = 'orange';
+                } else if (index == 'fixable') {
+                    clN = 'blue';
+                }
+                $('#codeSniffer').append('<li class="list-group-item"><span class="' + clN + '">' + index + ' : ' + element + '</span></li>');
             });
 
             // results codesniff detail
@@ -34,19 +53,22 @@ Template.done.onRendered(function () {
                     '<div class="card-header" id="heading' + count + '">' +
                     '                                    In file' +
                     '<span class="filePath">' + index + '</span>' +
-                    '<br>Errors : ' + element.errors + ' // Warnings : ' + element.warnings +
+                    '<br><span class="red">Errors : </span> ' + element.errors + ' // <span class="orange">Warnings</span> : ' + element.warnings +
                     '<br><i class="fa fa-caret-right"></i>&nbsp;Messages ' +
                     '</div></a></div>');
                 $('.cSErrors').last().append('<div id="collapse' + count + '" class="collapse" aria-labelledby="heading' + count + '" data-parent="#accordion"> </div>');
                 $('#collapse' + count).last().append('<ul class="list-group" id="list' + count + '"></ul>');
                 $.each(element.messages, function (i, e) {
-                    $('#list' + count).last().append('<li class="list-group-item">Type : ' + e.type + ' // Message : ' + e.message + ' // At line : ' + e.line + ' </li>');
+                    clN = '';
+                    if(e.type == 'ERROR') {
+                        clN = 'red';
+                    } else if (e.type == 'WARNING') {
+                        clN = 'orange';
+                    } else if (e.type == 'fixable') {
+                        clN = 'blue';
+                    }
+                    $('#list' + count).last().append('<li class="list-group-item">Type :<span class="' + clN + '"> ' + e.type + '</span> // Message : ' + e.message + ' // At line : ' + e.line + ' </li>');
                 });
-
-                // console.log(index);
-                // $.each(index, function (index, element) {
-                //     $('.list-group').last().append('<li class="list-group-item">' + element + '</li>');
-                // });
 
                 count++;
 
@@ -65,11 +87,9 @@ Template.done.onRendered(function () {
                 });
             });
 
-            console.log('before total');
             //CALCUL ERREURS
             var fixable = res.codeSniff.totals.warnings + res.codeSniff.totals.fixable;
             var errors = res.codeSniff.totals.errors;
-            console.log('fix:'+fixable+'errors'+errors);
 
             var percent = (fixable * 100) / errors;
 
@@ -83,49 +103,22 @@ Template.done.onRendered(function () {
                 color: '#8F9EA3',
                 easing: 'easeInOut',
                 text: {
-                    // Initial value for text.
-                    // Default: null
-                    value: Math.round(percent, 1) + ' % de votre code est bon',
 
-                    // Class name for text element.
-                    // Default: 'progressbar-text'
+                    value: Math.round(percent, 1) + phrases[iTab],
                     className: 'progressbarLabel',
-
-                    // Inline CSS styles for the text element.
-                    // If you want to modify all CSS your self, set null to disable
-                    // all default styles.
-                    // If the style option contains values, container is automatically
-                    // set to position: relative. You can disable behavior this with
-                    // autoStyleContainer: false
-                    // If you specify anything in this object, none of the default styles
-                    // apply
-                    // Default: object speficied below
                     style: {
-                        // Text color.
-                        // Default: same as stroke color (options.color)
                         color: '#fffaea',
                         position: 'absolute',
                         left: '50%',
                         top: '50%',
                         padding: 0,
                         margin: 0,
-                        // You can specify styles which will be browser prefixed
                         transform: {
                             prefix: true,
                             value: 'translate(-60%, -50%)'
                         }
                     },
-
-                    // Only effective if the text.style is not null
-                    // By default position: relative is applied to container if text
-                    // is set. Setting this to false disables that feature.
                     autoStyleContainer: true,
-
-                    // Only effective if the shape is SemiCircle.
-                    // If true, baseline for text is aligned with bottom of
-                    // the SVG canvas. If false, bottom line of SVG canvas
-                    // is in the center of text.
-                    // Default: true
                     alignToBottom: true
                 },
             });

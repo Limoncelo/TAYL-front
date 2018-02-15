@@ -29,7 +29,7 @@ Template.done.onRendered(function () {
             //     $('#phpLoc').append('<li class="list-group-item">' + index + ' : ' + element + '</li>' );
             // });
 
-            // mise en page des resultats globaux du test codesniffer
+            // mise en page des resultats (reçus en json) globaux du test codesniffer
             var clN = '';
             $.each(res.codeSniff.totals, function (index, element) {
                 clN = '';
@@ -43,7 +43,7 @@ Template.done.onRendered(function () {
                 $('#codeSniffer').append('<li class="list-group-item"><span class="' + clN + '">' + index + ' : ' + element + '</span></li>');
             });
 
-            // mise en page des resultats détaillés du test codesniffer
+            // mise en page des resultats (reçus en json) détaillés du test codesniffer
             $.each(res.codeSniff.files, function (index, element) {
                 $('.cSErrors').append('<ul class="list-group listCSErrors"></ul>');
                 $('.cSErrors').last().append('<div class="card">' +

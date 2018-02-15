@@ -4,6 +4,8 @@ Meteor.startup(() => {
 
     Meteor.methods({
         'postAPIData': function (url, mailUser, tests) {
+            //methode d'envoi de requete à l'api, envoie les informations saisies par l'utilisateur 
+            //après les avoir vérifiées, lance la job queue, et récupère le joblistid pour pouvoir retrouver les résultats
             // avoid blocking other method calls from the same client
             this.unblock();
             var urlGit = url;
@@ -19,13 +21,14 @@ Meteor.startup(() => {
                 }
                 // API URL + git url from input
                 var apiUrl = URL_PROD + '/queues/startTestProcess?urlGit=' + urlGit + '&mailUser=' + mailUser + params;
-                // asynchronous call to the dedicated API calling function
+                // appel asynchrone de la fonction d'appel de l'api
                 var id = Meteor.wrapAsync(apiCall)(apiUrl);
 
                 return id;
             }
         },
         'getJobStatus' : function (id) {
+            //méthode qui surveille l'api pour vérifier quand les tests sont terminés
             this.unblock();
             var idJobList = id;
 
@@ -35,6 +38,7 @@ Meteor.startup(() => {
             return response;
         },
         'getAPIData' : function (url) {
+            //méthode générique de contact de l'api avec l'url détaillé de l'api en paramètre
             this.unblock();
 
             var apiUrl = url;
@@ -43,6 +47,7 @@ Meteor.startup(() => {
             return response;
         },
         'getJsonFile' : function (projectName, idJobList) {
+            //méthode de récupération des résultats des tests sous forme de json
             this.unblock();
 
             var apiUrl = URL_PROD + '/getJson?projetGit=' + projectName + '&idJobList=' + idJobList;
@@ -50,7 +55,7 @@ Meteor.startup(() => {
             return response;
         },
     });
-
+//fontion d'appel de l'api
     var apiCall = function (apiUrl, callback) {
         // try…catch allows you to handle errors
         try {

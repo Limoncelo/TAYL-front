@@ -4,7 +4,7 @@ import { ReactiveVar } from 'meteor/reactive-var';
 import './main.html';
 
 Template.main.onRendered(function() {
-//BITCOIN
+//appel de la méthode pour afficher les informations de donation bitcoin sous forme de qr code
 
     Meteor.call('getAPIData', URL_PROD + '/donationBitCoin', function (err, res) {
         // The method call sets the Session variable to the callback value
@@ -15,7 +15,7 @@ Template.main.onRendered(function() {
         }
     });
 
-//ETHER
+//appel de la méthode pour afficher les informations de donation ether sous forme de qr code
 
 
     Meteor.call('getAPIData', URL_PROD + '/donationEther', function (err, res) {
@@ -26,7 +26,7 @@ Template.main.onRendered(function() {
             $('#eImg').attr("src", res.urlQrCode);
         }
     });
-//PAYPAL
+//script pour intégrer un bouton qui fait appel à l'api paypal pour les donations
 
     $.getScript('https://www.paypalobjects.com/api/checkout.js', function () {
 
@@ -79,7 +79,7 @@ Template.main.onRendered(function() {
     });
 
 
-
+//animation du background
     /**
      * Stars
      * Inspired by Steve Courtney's poster art for Celsius GS's Drifter - http://celsiusgs.com/drifter/posters.php

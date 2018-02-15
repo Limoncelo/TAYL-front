@@ -1,3 +1,4 @@
+//phrases à afficher en random avec le résultat
 var phrases = [
     ' % de votre code est irréprochable',
     ' % of your code is legen... wait for it... dary !',
@@ -13,10 +14,7 @@ Template.done.onRendered(function () {
     var regEx = new RegExp(/(https|http):\/\/github.com\/(.*)\/(.*).git(\/?)/);
     var projectName = regEx.exec(Session.get('urlGit'))[3];
     var idJobList = Session.get('idJobList');
-    //
-    // $('.show').click(function () {
-    //     $('.cSErrors').css('display', 'block');
-    // })
+
     console.log(idJobList);
     Meteor.call('getJsonFile', projectName, idJobList, function (err, res) {
         // The method call sets the Session variable to the callback value
@@ -31,7 +29,7 @@ Template.done.onRendered(function () {
             //     $('#phpLoc').append('<li class="list-group-item">' + index + ' : ' + element + '</li>' );
             // });
 
-            // results codesniff global
+            // mise en page des resultats globaux du test codesniffer
             var clN = '';
             $.each(res.codeSniff.totals, function (index, element) {
                 clN = '';
@@ -45,7 +43,7 @@ Template.done.onRendered(function () {
                 $('#codeSniffer').append('<li class="list-group-item"><span class="' + clN + '">' + index + ' : ' + element + '</span></li>');
             });
 
-            // results codesniff detail
+            // mise en page des resultats détaillés du test codesniffer
             $.each(res.codeSniff.files, function (index, element) {
                 $('.cSErrors').append('<ul class="list-group listCSErrors"></ul>');
                 $('.cSErrors').last().append('<div class="card">' +
@@ -87,7 +85,7 @@ Template.done.onRendered(function () {
                 });
             });
 
-            //CALCUL ERREURS
+            //CALCUL ERREURS pour obtenir un pourcentage de code "correct"
             var fixable = res.codeSniff.totals.warnings + res.codeSniff.totals.fixable;
             var errors = res.codeSniff.totals.errors;
 
